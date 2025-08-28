@@ -1,1 +1,0 @@
-# Freedoc-Medconnect-Replit-Pali-V1.0

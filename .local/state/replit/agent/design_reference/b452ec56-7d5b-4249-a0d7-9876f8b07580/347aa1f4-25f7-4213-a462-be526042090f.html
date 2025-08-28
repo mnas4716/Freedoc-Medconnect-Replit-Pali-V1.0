@@ -1,0 +1,1434 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeDoc - Australia's First Truly Free Online Doctor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'freedoc-blue': {
+                        DEFAULT: '#0d6efd',
+                        light: '#f0f7ff',
+                        dark: '#0a58ca'
+                    },
+                    'freedoc-dark': '#212529',
+                    'freedoc-secondary': '#6c757d',
+                }
+            }
+        }
+    };
+    </script>
+    <style>
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-freedoc-blue text-white p-2 rounded-lg">
+                        <i data-lucide="stethoscope" class="h-6 w-6"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-freedoc-dark">FreeDoc</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-freedoc-secondary hover:text-freedoc-blue transition-colors" onclick="showView('home')">Services</a>
+                    <a href="#" class="text-freedoc-secondary hover:text-freedoc-blue transition-colors" onclick="showView('how-it-works')">How It Works</a>
+                    <a href="#" class="text-freedoc-secondary hover:text-freedoc-blue transition-colors">About</a>
+                    <button onclick="showView('login')" class="text-freedoc-blue hover:text-freedoc-blue/80 font-medium">Sign In</button>
+                    <button onclick="showView('register')" class="bg-freedoc-blue text-white px-4 py-2 rounded-lg hover:bg-freedoc-blue/90 transition-colors">Get Started</button>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-freedoc-secondary">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home/Landing Page -->
+    <div id="home-view" class="view">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-freedoc-blue to-freedoc-blue/80 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        Healthcare Made<br>
+                        <span class="text-yellow-300">Simple & Free</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-blue-100">
+                        Connect with Australian Partner Doctors for prescriptions, medical certificates, and more — all from the comfort of your home, completely free of charge.
+                    </p>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
+                        <div class="flex items-center justify-center space-x-2 text-lg font-semibold">
+                            <i data-lucide="check-circle" class="h-6 w-6 text-green-300"></i>
+                            <span>100% Free Consultations & Services</span>
+                        </div>
+                    </div>
+                    <button onclick="showView('register')" class="bg-white text-freedoc-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-colors shadow-lg">
+                        Start Free Consultation
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-freedoc-dark mb-4">How We Can Help You</h2>
+                    <p class="text-xl text-freedoc-secondary">Choose from our comprehensive range of free online healthcare services</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showServiceForm('prescription')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="pill" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">Online Prescriptions</h3>
+                        <p class="text-freedoc-secondary mb-4">Renew your scripts online quickly and easily.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showServiceForm('medical-certificate')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="file-text" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">Medical Certificates</h3>
+                        <p class="text-freedoc-secondary mb-4">Get medical certificates for work or study.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showServiceForm('mental-health')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="heart" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">Mental Health Support</h3>
+                        <p class="text-freedoc-secondary mb-4">Access mental health care plans and support.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showServiceForm('telehealth')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="video" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">Telehealth Consults</h3>
+                        <p class="text-freedoc-secondary mb-4">Speak to an Australian Partner Doctor online.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showServiceForm('pathology')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="microscope" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">Pathology Referrals</h3>
+                        <p class="text-freedoc-secondary mb-4">Online referrals for a range of pathology tests.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+
+                    <div class="bg-freedoc-light rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showView('how-it-works')">
+                        <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mb-4">
+                            <i data-lucide="help-circle" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-2">How It Works</h3>
+                        <p class="text-freedoc-secondary mb-4">Learn how our online services operate.</p>
+                        <span class="text-freedoc-blue font-medium hover:underline">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-freedoc-dark mb-4">Simple 3-Step Process</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-4">Sign Up & Verify</h3>
+                        <p class="text-freedoc-secondary">Create your free account with email verification for secure access to healthcare services.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-4">Book Consultation</h3>
+                        <p class="text-freedoc-secondary">Choose your service and provide medical details. Get matched with an Australian partner doctor.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+                        <h3 class="text-xl font-semibold text-freedoc-dark mb-4">Receive Care</h3>
+                        <p class="text-freedoc-secondary">Get your prescriptions, certificates, or consultation completely free with no hidden costs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Registration View -->
+    <div id="register-view" class="view hidden">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mx-auto mb-4">
+                        <i data-lucide="user-plus" class="h-8 w-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-freedoc-dark">Create Your Account</h2>
+                    <p class="text-freedoc-secondary mt-2">Join thousands of Australians accessing free healthcare</p>
+                </div>
+                
+                <form class="space-y-6" onsubmit="handleRegistration(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Full Name</label>
+                            <input type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="John Smith">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Email Address</label>
+                            <input type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="john@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Date of Birth</label>
+                            <input type="date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Medicare Number (Optional)</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="1234 56789 0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Password</label>
+                            <input type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Enter password">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" required class="h-4 w-4 text-freedoc-blue focus:ring-freedoc-blue border-gray-300 rounded">
+                        <label class="ml-2 text-sm text-freedoc-secondary">
+                            I agree to the <a href="#" class="text-freedoc-blue hover:underline">Terms of Service</a> and <a href="#" class="text-freedoc-blue hover:underline">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-freedoc-blue text-white py-2 px-4 rounded-lg hover:bg-freedoc-blue/90 transition-colors font-medium">
+                        Create Account
+                    </button>
+                </form>
+                
+                <div class="text-center">
+                    <p class="text-sm text-freedoc-secondary">
+                        Already have an account? 
+                        <button onclick="showView('login')" class="text-freedoc-blue hover:underline font-medium">Sign in</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Verification View -->
+    <div id="otp-view" class="view hidden">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <div class="bg-green-500 text-white p-3 rounded-lg w-fit mx-auto mb-4">
+                        <i data-lucide="mail-check" class="h-8 w-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-freedoc-dark">Verify Your Email</h2>
+                    <p class="text-freedoc-secondary mt-2">We've sent a 6-digit code to <span id="otp-email" class="font-medium">john@example.com</span></p>
+                </div>
+                
+                <form class="space-y-6" onsubmit="handleOTPVerification(event)">
+                    <div>
+                        <label class="block text-sm font-medium text-freedoc-dark mb-2 text-center">Enter Verification Code</label>
+                        <div class="flex justify-center space-x-2">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue text-lg font-bold" data-otp-input>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-freedoc-blue text-white py-2 px-4 rounded-lg hover:bg-freedoc-blue/90 transition-colors font-medium">
+                        Verify Email
+                    </button>
+                </form>
+                
+                <div class="text-center space-y-2">
+                    <p class="text-sm text-freedoc-secondary">Didn't receive the code?</p>
+                    <button onclick="resendOTP()" class="text-freedoc-blue hover:underline font-medium text-sm">Resend Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login View -->
+    <div id="login-view" class="view hidden">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <div class="bg-freedoc-blue text-white p-3 rounded-lg w-fit mx-auto mb-4">
+                        <i data-lucide="log-in" class="h-8 w-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-freedoc-dark">Welcome Back</h2>
+                    <p class="text-freedoc-secondary mt-2">Sign in to access your healthcare dashboard</p>
+                </div>
+                
+                <form class="space-y-6" onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Email Address</label>
+                            <input type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="john@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-freedoc-dark mb-2">Password</label>
+                            <input type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Enter password">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" class="h-4 w-4 text-freedoc-blue focus:ring-freedoc-blue border-gray-300 rounded">
+                            <label class="ml-2 text-sm text-freedoc-secondary">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-freedoc-blue hover:underline">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-freedoc-blue text-white py-2 px-4 rounded-lg hover:bg-freedoc-blue/90 transition-colors font-medium">
+                        Sign In
+                    </button>
+                </form>
+                
+                <div class="text-center">
+                    <p class="text-sm text-freedoc-secondary">
+                        Don't have an account? 
+                        <button onclick="showView('register')" class="text-freedoc-blue hover:underline font-medium">Create one here</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Dashboard -->
+    <div id="patient-dashboard" class="view hidden">
+        <div class="min-h-screen bg-gray-50">
+            <!-- Dashboard Header -->
+            <div class="bg-white shadow-sm border-b">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-freedoc-dark">Patient Dashboard</h1>
+                            <p class="text-freedoc-secondary">Welcome back, <span id="patient-name">John Smith</span></p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button onclick="showView('home')" class="text-freedoc-secondary hover:text-freedoc-blue">
+                                <i data-lucide="log-out" class="h-5 w-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Quick Actions -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <button onclick="showServiceForm('prescription')" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="bg-blue-100 text-freedoc-blue p-2 rounded-lg w-fit mb-3">
+                            <i data-lucide="pill" class="h-5 w-5"></i>
+                        </div>
+                        <h3 class="font-semibold text-freedoc-dark">New Prescription</h3>
+                        <p class="text-sm text-freedoc-secondary">Request script renewal</p>
+                    </button>
+
+                    <button onclick="showServiceForm('medical-certificate')" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="bg-green-100 text-green-600 p-2 rounded-lg w-fit mb-3">
+                            <i data-lucide="file-text" class="h-5 w-5"></i>
+                        </div>
+                        <h3 class="font-semibold text-freedoc-dark">Medical Certificate</h3>
+                        <p class="text-sm text-freedoc-secondary">Get work/study certificate</p>
+                    </button>
+
+                    <button onclick="showServiceForm('telehealth')" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="bg-purple-100 text-purple-600 p-2 rounded-lg w-fit mb-3">
+                            <i data-lucide="video" class="h-5 w-5"></i>
+                        </div>
+                        <h3 class="font-semibold text-freedoc-dark">Video Consultation</h3>
+                        <p class="text-sm text-freedoc-secondary">Book telehealth session</p>
+                    </button>
+
+                    <button onclick="showServiceForm('mental-health')" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="bg-red-100 text-red-600 p-2 rounded-lg w-fit mb-3">
+                            <i data-lucide="heart" class="h-5 w-5"></i>
+                        </div>
+                        <h3 class="font-semibold text-freedoc-dark">Mental Health</h3>
+                        <p class="text-sm text-freedoc-secondary">Access support services</p>
+                    </button>
+                </div>
+
+                <!-- Recent Consultations -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-6 border-b">
+                        <h2 class="text-xl font-semibold text-freedoc-dark">Recent Consultations</h2>
+                    </div>
+                    <div class="p-6">
+                        <div id="patient-consultations">
+                            <!-- Dynamic consultation history will be loaded here -->
+                            <div class="text-center text-freedoc-secondary py-8">
+                                <i data-lucide="calendar" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                                <p>No consultations yet. Book your first free consultation above!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Dashboard -->
+    <div id="doctor-dashboard" class="view hidden">
+        <div class="min-h-screen bg-gray-50">
+            <!-- Dashboard Header -->
+            <div class="bg-white shadow-sm border-b">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-freedoc-dark">Doctor Dashboard</h1>
+                            <p class="text-freedoc-secondary">Dr. <span id="doctor-name">Sarah Johnson</span> - General Practitioner</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Online</span>
+                            <button onclick="showView('home')" class="text-freedoc-secondary hover:text-freedoc-blue">
+                                <i data-lucide="log-out" class="h-5 w-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Stats Cards -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-freedoc-secondary text-sm">Pending Consultations</p>
+                                <p class="text-2xl font-bold text-freedoc-dark" id="pending-count">0</p>
+                            </div>
+                            <div class="bg-orange-100 text-orange-600 p-2 rounded-lg">
+                                <i data-lucide="clock" class="h-5 w-5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-freedoc-secondary text-sm">Completed Today</p>
+                                <p class="text-2xl font-bold text-freedoc-dark">8</p>
+                            </div>
+                            <div class="bg-green-100 text-green-600 p-2 rounded-lg">
+                                <i data-lucide="check-circle" class="h-5 w-5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-freedoc-secondary text-sm">Total Patients</p>
+                                <p class="text-2xl font-bold text-freedoc-dark">247</p>
+                            </div>
+                            <div class="bg-blue-100 text-freedoc-blue p-2 rounded-lg">
+                                <i data-lucide="users" class="h-5 w-5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-freedoc-secondary text-sm">Avg Response Time</p>
+                                <p class="text-2xl font-bold text-freedoc-dark">12m</p>
+                            </div>
+                            <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                                <i data-lucide="timer" class="h-5 w-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consultation Queue -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-6 border-b">
+                        <h2 class="text-xl font-semibold text-freedoc-dark">Consultation Queue</h2>
+                    </div>
+                    <div class="p-6">
+                        <div id="doctor-consultations">
+                            <!-- Dynamic consultation queue will be loaded here -->
+                            <div class="text-center text-freedoc-secondary py-8">
+                                <i data-lucide="clipboard-list" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                                <p>No pending consultations at the moment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="view hidden">
+        <div class="min-h-screen bg-gray-50">
+            <!-- Dashboard Header -->
+            <div class="bg-white shadow-sm border-b">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-freedoc-dark">Admin Dashboard</h1>
+                            <p class="text-freedoc-secondary">System Administration & Analytics</p>
+                        </div>
+                        <button onclick="showView('home')" class="text-freedoc-secondary hover:text-freedoc-blue">
+                            <i data-lucide="log-out" class="h-5 w-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Admin Stats -->
+                <div class="grid md:grid-cols-5 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-center">
+                            <div class="bg-blue-100 text-freedoc-blue p-3 rounded-lg w-fit mx-auto mb-3">
+                                <i data-lucide="users" class="h-6 w-6"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-freedoc-dark">1,247</p>
+                            <p class="text-freedoc-secondary text-sm">Total Users</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-center">
+                            <div class="bg-green-100 text-green-600 p-3 rounded-lg w-fit mx-auto mb-3">
+                                <i data-lucide="user-check" class="h-6 w-6"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-freedoc-dark">23</p>
+                            <p class="text-freedoc-secondary text-sm">Active Doctors</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-center">
+                            <div class="bg-purple-100 text-purple-600 p-3 rounded-lg w-fit mx-auto mb-3">
+                                <i data-lucide="calendar" class="h-6 w-6"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-freedoc-dark">3,891</p>
+                            <p class="text-freedoc-secondary text-sm">Total Consultations</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-center">
+                            <div class="bg-orange-100 text-orange-600 p-3 rounded-lg w-fit mx-auto mb-3">
+                                <i data-lucide="clock" class="h-6 w-6"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-freedoc-dark">42</p>
+                            <p class="text-freedoc-secondary text-sm">Pending Queue</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="text-center">
+                            <div class="bg-red-100 text-red-600 p-3 rounded-lg w-fit mx-auto mb-3">
+                                <i data-lucide="file-text" class="h-6 w-6"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-freedoc-dark">89</p>
+                            <p class="text-freedoc-secondary text-sm">Certificates Issued</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Management Tabs -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="border-b">
+                        <nav class="-mb-px flex space-x-8 px-6">
+                            <button class="admin-tab py-4 px-1 border-b-2 border-freedoc-blue text-freedoc-blue font-medium active" onclick="showAdminTab('consultations')">
+                                All Consultations
+                            </button>
+                            <button class="admin-tab py-4 px-1 border-b-2 border-transparent text-freedoc-secondary hover:text-freedoc-dark" onclick="showAdminTab('users')">
+                                User Management
+                            </button>
+                            <button class="admin-tab py-4 px-1 border-b-2 border-transparent text-freedoc-secondary hover:text-freedoc-dark" onclick="showAdminTab('doctors')">
+                                Doctor Management
+                            </button>
+                        </nav>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div id="admin-consultations" class="admin-tab-content">
+                            <h3 class="text-lg font-semibold text-freedoc-dark mb-4">All System Consultations</h3>
+                            <div id="all-consultations">
+                                <!-- Dynamic consultation list will be loaded here -->
+                                <div class="text-center text-freedoc-secondary py-8">
+                                    <i data-lucide="activity" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                                    <p>Loading consultation data...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="admin-users" class="admin-tab-content hidden">
+                            <h3 class="text-lg font-semibold text-freedoc-dark mb-4">User Management</h3>
+                            <div class="text-center text-freedoc-secondary py-8">
+                                <i data-lucide="users" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                                <p>User management interface would be implemented here.</p>
+                            </div>
+                        </div>
+                        
+                        <div id="admin-doctors" class="admin-tab-content hidden">
+                            <h3 class="text-lg font-semibold text-freedoc-dark mb-4">Doctor Management</h3>
+                            <div class="text-center text-freedoc-secondary py-8">
+                                <i data-lucide="user-check" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                                <p>Doctor management interface would be implemented here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Form Modal -->
+    <div id="service-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 id="service-modal-title" class="text-xl font-semibold text-freedoc-dark">Request Service</h2>
+                <button onclick="hideServiceForm()" class="text-freedoc-secondary hover:text-freedoc-dark">
+                    <i data-lucide="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <form id="service-form" onsubmit="handleServiceRequest(event)">
+                    <div id="service-form-content">
+                        <!-- Dynamic form content will be loaded here -->
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-4">
+                        <button type="button" onclick="hideServiceForm()" class="flex-1 bg-gray-300 text-freedoc-dark py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 bg-freedoc-blue text-white py-2 px-4 rounded-lg hover:bg-freedoc-blue/90 transition-colors">
+                            Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works View -->
+    <div id="how-it-works-view" class="view hidden">
+        <div class="bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl font-bold text-freedoc-dark mb-4">How FreeDoc Works</h1>
+                    <p class="text-xl text-freedoc-secondary max-w-3xl mx-auto">
+                        Our streamlined process makes accessing quality healthcare simple, fast, and completely free for all Australians.
+                    </p>
+                </div>
+
+                <!-- Detailed Process Steps -->
+                <div class="space-y-16">
+                    <div class="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12">
+                        <div class="lg:w-1/2">
+                            <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">1</div>
+                            <h3 class="text-2xl font-bold text-freedoc-dark mb-4">Create Your Secure Account</h3>
+                            <p class="text-freedoc-secondary mb-6">
+                                Sign up with your email and verify your identity through our secure OTP system. Your medical information is protected with bank-level encryption and complies with Australian privacy laws.
+                            </p>
+                            <ul class="space-y-2 text-freedoc-secondary">
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Email verification via secure OTP</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Bank-level security encryption</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>HIPAA-compliant data handling</li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <!-- Mockup illustration of account creation -->
+                            <div class="bg-freedoc-light rounded-xl p-8">
+                                <div class="bg-white rounded-lg p-6 shadow-sm">
+                                    <div class="h-4 bg-gray-200 rounded mb-3"></div>
+                                    <div class="h-4 bg-gray-200 rounded mb-6 w-3/4"></div>
+                                    <div class="flex space-x-2 mb-4">
+                                        <div class="w-8 h-8 bg-freedoc-blue rounded"></div>
+                                        <div class="w-8 h-8 bg-gray-200 rounded"></div>
+                                        <div class="w-8 h-8 bg-gray-200 rounded"></div>
+                                    </div>
+                                    <div class="h-10 bg-freedoc-blue rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row-reverse items-center space-y-8 lg:space-y-0 lg:space-x-12 lg:space-x-reverse">
+                        <div class="lg:w-1/2">
+                            <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">2</div>
+                            <h3 class="text-2xl font-bold text-freedoc-dark mb-4">Choose Your Healthcare Service</h3>
+                            <p class="text-freedoc-secondary mb-6">
+                                Select from our comprehensive range of services and provide your medical details through our secure forms. Our intelligent system matches you with the most suitable Australian Partner Doctor.
+                            </p>
+                            <ul class="space-y-2 text-freedoc-secondary">
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>5 specialized healthcare services</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Smart doctor matching algorithm</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Equal workload distribution</li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                    <i data-lucide="pill" class="h-8 w-8 text-freedoc-blue mx-auto mb-2"></i>
+                                    <p class="text-sm font-medium">Prescriptions</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg text-center">
+                                    <i data-lucide="file-text" class="h-8 w-8 text-green-600 mx-auto mb-2"></i>
+                                    <p class="text-sm font-medium">Certificates</p>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg text-center">
+                                    <i data-lucide="video" class="h-8 w-8 text-purple-600 mx-auto mb-2"></i>
+                                    <p class="text-sm font-medium">Telehealth</p>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg text-center">
+                                    <i data-lucide="heart" class="h-8 w-8 text-red-600 mx-auto mb-2"></i>
+                                    <p class="text-sm font-medium">Mental Health</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12">
+                        <div class="lg:w-1/2">
+                            <div class="bg-freedoc-blue text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">3</div>
+                            <h3 class="text-2xl font-bold text-freedoc-dark mb-4">Receive Professional Care</h3>
+                            <p class="text-freedoc-secondary mb-6">
+                                Your assigned Australian Partner Doctor reviews your case and provides the necessary healthcare service. Download your prescriptions, certificates, or schedule follow-up consultations - all completely free.
+                            </p>
+                            <ul class="space-y-2 text-freedoc-secondary">
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Qualified Australian doctors</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>Fast response times</li>
+                                <li class="flex items-center"><i data-lucide="check" class="h-4 w-4 text-green-500 mr-2"></i>100% free service</li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <div class="bg-freedoc-light rounded-xl p-8">
+                                <div class="bg-white rounded-lg p-6 shadow-sm">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 bg-freedoc-blue rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">Dr</div>
+                                        <div>
+                                            <div class="h-3 bg-gray-300 rounded w-20 mb-1"></div>
+                                            <div class="h-2 bg-gray-200 rounded w-16"></div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 mb-4">
+                                        <div class="h-3 bg-gray-200 rounded"></div>
+                                        <div class="h-3 bg-gray-200 rounded w-4/5"></div>
+                                        <div class="h-3 bg-gray-200 rounded w-3/5"></div>
+                                    </div>
+                                    <div class="h-8 bg-green-500 rounded text-white flex items-center justify-center text-sm">
+                                        ✓ Prescription Ready
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="text-center mt-16">
+                    <h3 class="text-2xl font-bold text-freedoc-dark mb-4">Ready to Get Started?</h3>
+                    <p class="text-freedoc-secondary mb-8">Join thousands of Australians who trust FreeDoc for their healthcare needs</p>
+                    <button onclick="showView('register')" class="bg-freedoc-blue text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-freedoc-blue/90 transition-colors">
+                        Create Free Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Global state management
+        let currentUser = null;
+        let currentView = 'home';
+        let consultations = JSON.parse(localStorage.getItem('consultations') || '[]');
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        let doctors = JSON.parse(localStorage.getItem('doctors') || '[]');
+
+        // Initialize demo doctors
+        if (doctors.length === 0) {
+            doctors = [
+                {id: 1, name: 'Dr. Sarah Johnson', specialty: 'General Practice', email: 'sarah.johnson@freedoc.com.au'},
+                {id: 2, name: 'Dr. Michael Chen', specialty: 'Mental Health', email: 'michael.chen@freedoc.com.au'},
+                {id: 3, name: 'Dr. Emma Williams', specialty: 'General Practice', email: 'emma.williams@freedoc.com.au'},
+                {id: 4, name: 'Dr. James Thompson', specialty: 'General Practice', email: 'james.thompson@freedoc.com.au'},
+                {id: 5, name: 'Dr. Lisa Anderson', specialty: 'Mental Health', email: 'lisa.anderson@freedoc.com.au'}
+            ];
+            localStorage.setItem('doctors', JSON.stringify(doctors));
+        }
+
+        // View management
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.add('hidden');
+            });
+            
+            // Show target view
+            const targetView = document.getElementById(viewName + '-view') || document.getElementById(viewName);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                targetView.classList.add('fade-in');
+                currentView = viewName;
+            }
+
+            // Update view-specific content
+            if (viewName === 'patient-dashboard') {
+                loadPatientConsultations();
+            } else if (viewName === 'doctor-dashboard') {
+                loadDoctorConsultations();
+            } else if (viewName === 'admin-dashboard') {
+                loadAdminConsultations();
+            }
+        }
+
+        // Registration handling
+        function handleRegistration(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const userData = {
+                name: event.target.querySelector('input[type="text"]').value,
+                email: event.target.querySelector('input[type="email"]').value,
+                dob: event.target.querySelector('input[type="date"]').value,
+                medicare: event.target.querySelector('input[placeholder="1234 56789 0"]').value,
+                password: event.target.querySelector('input[type="password"]').value,
+                role: 'patient',
+                id: Date.now(),
+                verified: false
+            };
+
+            // Store user data temporarily
+            sessionStorage.setItem('pendingUser', JSON.stringify(userData));
+            
+            // Show OTP verification
+            document.getElementById('otp-email').textContent = userData.email;
+            
+            // TODO: Send OTP email via backend API
+            console.log('Sending OTP to:', userData.email);
+            // Simulated OTP: 123456 for demo purposes
+            
+            showView('otp');
+        }
+
+        // OTP handling
+        function handleOTPVerification(event) {
+            event.preventDefault();
+            const otpInputs = document.querySelectorAll('[data-otp-input]');
+            const otpCode = Array.from(otpInputs).map(input => input.value).join('');
+            
+            // For demo purposes, accept 123456 as valid OTP
+            if (otpCode === '123456' || otpCode.length === 6) {
+                const userData = JSON.parse(sessionStorage.getItem('pendingUser'));
+                userData.verified = true;
+                
+                // Save to localStorage (in production, this would be database)
+                users.push(userData);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Set as current user
+                currentUser = userData;
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Clear pending user
+                sessionStorage.removeItem('pendingUser');
+                
+                // Redirect based on role
+                if (userData.role === 'patient') {
+                    showView('patient-dashboard');
+                } else if (userData.role === 'doctor') {
+                    showView('doctor-dashboard');
+                } else if (userData.role === 'admin') {
+                    showView('admin-dashboard');
+                }
+            } else {
+                alert('Invalid OTP. Please try again. (Demo: use 123456)');
+            }
+        }
+
+        // OTP input handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const otpInputs = document.querySelectorAll('[data-otp-input]');
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+
+        // Resend OTP
+        function resendOTP() {
+            const userData = JSON.parse(sessionStorage.getItem('pendingUser'));
+            if (userData) {
+                // TODO: Resend OTP via backend API
+                console.log('Resending OTP to:', userData.email);
+                alert('OTP has been resent to your email address.');
+            }
+        }
+
+        // Login handling
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            const password = event.target.querySelector('input[type="password"]').value;
+            
+            // Demo login credentials
+            const demoCredentials = [
+                {email: 'patient@demo.com', password: 'patient123', role: 'patient', name: 'John Smith'},
+                {email: 'doctor@demo.com', password: 'doctor123', role: 'doctor', name: 'Dr. Sarah Johnson'},
+                {email: 'admin@demo.com', password: 'admin123', role: 'admin', name: 'System Admin'}
+            ];
+            
+            // Check demo credentials first
+            const demoUser = demoCredentials.find(cred => cred.email === email && cred.password === password);
+            if (demoUser) {
+                currentUser = {
+                    ...demoUser,
+                    id: Date.now(),
+                    verified: true
+                };
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                if (demoUser.role === 'patient') {
+                    showView('patient-dashboard');
+                } else if (demoUser.role === 'doctor') {
+                    showView('doctor-dashboard');
+                } else if (demoUser.role === 'admin') {
+                    showView('admin-dashboard');
+                }
+                return;
+            }
+            
+            // Check registered users
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user && user.verified) {
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                if (user.role === 'patient') {
+                    showView('patient-dashboard');
+                } else if (user.role === 'doctor') {
+                    showView('doctor-dashboard');
+                } else if (user.role === 'admin') {
+                    showView('admin-dashboard');
+                }
+            } else {
+                alert('Invalid credentials or unverified account. Try demo credentials:\nPatient: patient@demo.com / patient123\nDoctor: doctor@demo.com / doctor123\nAdmin: admin@demo.com / admin123');
+            }
+        }
+
+        // Service form management
+        function showServiceForm(serviceType) {
+            const modal = document.getElementById('service-modal');
+            const title = document.getElementById('service-modal-title');
+            const content = document.getElementById('service-form-content');
+            
+            const serviceConfig = {
+                'prescription': {
+                    title: 'Request Prescription Renewal',
+                    fields: `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Medication Name</label>
+                                <input type="text" name="medication" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="e.g. Panadol, Ventolin">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Dosage</label>
+                                <input type="text" name="dosage" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="e.g. 500mg twice daily">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Previous Prescribing Doctor</label>
+                                <input type="text" name="previous_doctor" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Dr. Smith">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Reason for Prescription</label>
+                                <textarea name="reason" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Brief description of medical condition requiring this medication"></textarea>
+                            </div>
+                            <input type="hidden" name="service_type" value="prescription">
+                        </div>
+                    `
+                },
+                'medical-certificate': {
+                    title: 'Request Medical Certificate',
+                    fields: `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Certificate Type</label>
+                                <select name="certificate_type" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">Select type</option>
+                                    <option value="sick_leave">Sick Leave</option>
+                                    <option value="fitness_to_work">Fitness to Work</option>
+                                    <option value="study_exemption">Study Exemption</option>
+                                    <option value="general_medical">General Medical Certificate</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Date From</label>
+                                <input type="date" name="date_from" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Date To</label>
+                                <input type="date" name="date_to" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Symptoms/Condition</label>
+                                <textarea name="symptoms" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Describe your symptoms or medical condition"></textarea>
+                            </div>
+                            <input type="hidden" name="service_type" value="medical-certificate">
+                        </div>
+                    `
+                },
+                'mental-health': {
+                    title: 'Mental Health Support Request',
+                    fields: `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Support Type</label>
+                                <select name="support_type" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">Select support type</option>
+                                    <option value="mental_health_plan">Mental Health Care Plan</option>
+                                    <option value="counseling_referral">Counseling Referral</option>
+                                    <option value="medication_review">Medication Review</option>
+                                    <option value="crisis_support">Crisis Support</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Current Symptoms (Optional)</label>
+                                <textarea name="symptoms" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Briefly describe what you're experiencing"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Previous Mental Health Treatment</label>
+                                <textarea name="previous_treatment" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Any previous counseling, medications, or treatment"></textarea>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <p class="text-sm text-freedoc-dark"><strong>Crisis Support:</strong> If you're having thoughts of self-harm, please call Lifeline 13 11 14 or visit your nearest emergency department.</p>
+                            </div>
+                            <input type="hidden" name="service_type" value="mental-health">
+                        </div>
+                    `
+                },
+                'telehealth': {
+                    title: 'Book Telehealth Consultation',
+                    fields: `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Consultation Type</label>
+                                <select name="consultation_type" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">Select consultation type</option>
+                                    <option value="general">General Consultation</option>
+                                    <option value="follow_up">Follow-up Appointment</option>
+                                    <option value="chronic_disease">Chronic Disease Management</option>
+                                    <option value="preventive">Preventive Health Check</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Preferred Time</label>
+                                <select name="preferred_time" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">Select preferred time</option>
+                                    <option value="morning">Morning (9am-12pm)</option>
+                                    <option value="afternoon">Afternoon (12pm-5pm)</option>
+                                    <option value="evening">Evening (5pm-8pm)</option>
+                                    <option value="anytime">Any time available</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Current Health Concerns</label>
+                                <textarea name="health_concerns" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Describe your current health concerns or symptoms"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Current Medications</label>
+                                <textarea name="current_medications" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="List any medications you're currently taking"></textarea>
+                            </div>
+                            <input type="hidden" name="service_type" value="telehealth">
+                        </div>
+                    `
+                },
+                'pathology': {
+                    title: 'Request Pathology Referral',
+                    fields: `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Test Type Required</label>
+                                <select name="test_type" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">Select test type</option>
+                                    <option value="blood_work">Blood Work (FBC, Iron Studies, etc.)</option>
+                                    <option value="diabetes_screening">Diabetes Screening</option>
+                                    <option value="cholesterol">Cholesterol Check</option>
+                                    <option value="thyroid">Thyroid Function</option>
+                                    <option value="vitamin_d">Vitamin D Level</option>
+                                    <option value="other">Other (specify below)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Symptoms or Reason for Test</label>
+                                <textarea name="reason_for_test" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="Describe symptoms or reason for requesting these tests"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Last Similar Tests (if any)</label>
+                                <input type="text" name="previous_tests" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue" placeholder="When and what results (optional)">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-freedoc-dark mb-2">Preferred Pathology Lab</label>
+                                <select name="preferred_lab" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue">
+                                    <option value="">No preference</option>
+                                    <option value="australian_clinical_labs">Australian Clinical Labs</option>
+                                    <option value="healius">Healius Pathology</option>
+                                    <option value="qml">QML Pathology</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="service_type" value="pathology">
+                        </div>
+                    `
+                }
+            };
+            
+            const config = serviceConfig[serviceType];
+            if (config) {
+                title.textContent = config.title;
+                content.innerHTML = config.fields;
+                modal.classList.remove('hidden');
+                
+                // Re-initialize Lucide icons in the modal
+                lucide.createIcons();
+            }
+        }
+
+        function hideServiceForm() {
+            document.getElementById('service-modal').classList.add('hidden');
+        }
+
+        // Handle service request submission
+        function handleServiceRequest(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const requestData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                requestData[key] = value;
+            }
+            
+            // Add metadata
+            const consultation = {
+                id: Date.now(),
+                patient_id: currentUser?.id || 'demo-patient',
+                patient_name: currentUser?.name || 'John Smith',
+                doctor_id: assignDoctorRandomly(),
+                status: 'pending',
+                created_at: new Date().toISOString(),
+                request_data: requestData
+            };
+            
+            // Save consultation
+            consultations.push(consultation);
+            localStorage.setItem('consultations', JSON.stringify(consultations));
+            
+            // Hide modal and show success message
+            hideServiceForm();
+            alert('Your request has been submitted successfully! A doctor will review it soon.');
+            
+            // Refresh dashboard if on patient view
+            if (currentView === 'patient-dashboard') {
+                loadPatientConsultations();
+            }
+        }
+
+        // Doctor assignment algorithm - equal distribution
+        function assignDoctorRandomly() {
+            if (doctors.length === 0) return null;
+            
+            // Count current assignments for each doctor
+            const doctorWorkload = {};
+            doctors.forEach(doctor => {
+                doctorWorkload[doctor.id] = consultations.filter(c => 
+                    c.doctor_id === doctor.id && 
+                    (c.status === 'pending' || c.status === 'in_progress')
+                ).length;
+            });
+            
+            // Find doctor with minimum workload
+            const minWorkload = Math.min(...Object.values(doctorWorkload));
+            const availableDoctors = doctors.filter(doctor => 
+                doctorWorkload[doctor.id] === minWorkload
+            );
+            
+            // Randomly select from doctors with minimum workload
+            return availableDoctors[Math.floor(Math.random() * availableDoctors.length)].id;
+        }
+
+        // Load patient consultations
+        function loadPatientConsultations() {
+            const container = document.getElementById('patient-consultations');
+            const patientConsultations = consultations.filter(c => 
+                c.patient_id === (currentUser?.id || 'demo-patient')
+            );
+            
+            if (patientConsultations.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-freedoc-secondary py-8">
+                        <i data-lucide="calendar" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                        <p>No consultations yet. Book your first free consultation above!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = patientConsultations.map(consultation => {
+                    const doctor = doctors.find(d => d.id === consultation.doctor_id);
+                    const statusColor = {
+                        pending: 'bg-orange-100 text-orange-800',
+                        in_progress: 'bg-blue-100 text-blue-800',
+                        completed: 'bg-green-100 text-green-800',
+                        cancelled: 'bg-red-100 text-red-800'
+                    };
+                    
+                    return `
+                        <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-freedoc-dark capitalize">
+                                    ${consultation.request_data.service_type.replace('_', ' ')} Request
+                                </h4>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColor[consultation.status] || statusColor.pending}">
+                                    ${consultation.status.replace('_', ' ').toUpperCase()}
+                                </span>
+                            </div>
+                            <p class="text-sm text-freedoc-secondary mb-2">
+                                Assigned Doctor: ${doctor ? doctor.name : 'Assigning...'}
+                            </p>
+                            <p class="text-sm text-freedoc-secondary">
+                                Submitted: ${new Date(consultation.created_at).toLocaleDateString()}
+                            </p>
+                            ${consultation.status === 'completed' ? `
+                                <button class="mt-2 text-sm text-freedoc-blue hover:underline">
+                                    Download Result
+                                </button>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Re-initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Load doctor consultations
+        function loadDoctorConsultations() {
+            const container = document.getElementById('doctor-consultations');
+            const pendingCount = document.getElementById('pending-count');
+            
+            // Assume current doctor is the first one for demo
+            const currentDoctorId = 1;
+            const doctorConsultations = consultations.filter(c => 
+                c.doctor_id === currentDoctorId && c.status === 'pending'
+            );
+            
+            pendingCount.textContent = doctorConsultations.length;
+            
+            if (doctorConsultations.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-freedoc-secondary py-8">
+                        <i data-lucide="clipboard-list" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                        <p>No pending consultations at the moment.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = doctorConsultations.map(consultation => `
+                    <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-freedoc-dark">
+                                ${consultation.patient_name} - ${consultation.request_data.service_type.replace('_', ' ').toUpperCase()}
+                            </h4>
+                            <div class="flex space-x-2">
+                                <button onclick="processConsultation(${consultation.id}, 'completed')" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                                    Complete
+                                </button>
+                                <button onclick="processConsultation(${consultation.id}, 'in_progress')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+                                    In Progress
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-sm text-freedoc-secondary mb-2">
+                            Submitted: ${new Date(consultation.created_at).toLocaleDateString()}
+                        </p>
+                        <div class="text-sm text-freedoc-dark">
+                            ${Object.entries(consultation.request_data)
+                                .filter(([key, value]) => key !== 'service_type' && value)
+                                .map(([key, value]) => `
+                                    <div class="mb-1">
+                                        <strong>${key.replace('_', ' ').toUpperCase()}:</strong> ${value}
+                                    </div>
+                                `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            lucide.createIcons();
+        }
+
+        // Process consultation (for doctors)
+        function processConsultation(consultationId, newStatus) {
+            const consultation = consultations.find(c => c.id === consultationId);
+            if (consultation) {
+                consultation.status = newStatus;
+                consultation.processed_at = new Date().toISOString();
+                localStorage.setItem('consultations', JSON.stringify(consultations));
+                
+                // Refresh the doctor dashboard
+                loadDoctorConsultations();
+                
+                alert(`Consultation ${newStatus.replace('_', ' ')} successfully!`);
+            }
+        }
+
+        // Load admin consultations
+        function loadAdminConsultations() {
+            const container = document.getElementById('all-consultations');
+            
+            if (consultations.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-freedoc-secondary py-8">
+                        <i data-lucide="activity" class="h-12 w-12 mx-auto mb-4 opacity-50"></i>
+                        <p>No consultations in the system yet.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                ${consultations.map(consultation => {
+                                    const doctor = doctors.find(d => d.id === consultation.doctor_id);
+                                    const statusColor = {
+                                        pending: 'bg-orange-100 text-orange-800',
+                                        in_progress: 'bg-blue-100 text-blue-800',
+                                        completed: 'bg-green-100 text-green-800',
+                                        cancelled: 'bg-red-100 text-red-800'
+                                    };
+                                    
+                                    return `
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${consultation.patient_name}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${consultation.request_data.service_type.replace('_', ' ')}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${doctor ? doctor.name : 'Unassigned'}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColor[consultation.status] || statusColor.pending}">
+                                                    ${consultation.status.replace('_', ' ')}
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                ${new Date(consultation.created_at).toLocaleDateString()}
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            lucide.createIcons();
+        }
+
+        // Admin tab management
+        function showAdminTab(tabName) {
+            // Update tab styles
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('border-freedoc-blue', 'text-freedoc-blue', 'active');
+                tab.classList.add('border-transparent', 'text-freedoc-secondary');
+            });
+            
+            document.querySelector(`[onclick="showAdminTab('${tabName}')"]`).classList.remove('border-transparent', 'text-freedoc-secondary');
+            document.querySelector(`[onclick="showAdminTab('${tabName}')"]`).classList.add('border-freedoc-blue', 'text-freedoc-blue', 'active');
+            
+            // Show/hide content
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            document.getElementById(`admin-${tabName}`).classList.remove('hidden');
+            
+            // Load specific content
+            if (tabName === 'consultations') {
+                loadAdminConsultations();
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const savedUser = sessionStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                // Auto-redirect to appropriate dashboard
+                if (currentUser.role === 'patient') {
+                    showView('patient-dashboard');
+                } else if (currentUser.role === 'doctor') {
+                    showView('doctor-dashboard');
+                } else if (currentUser.role === 'admin') {
+                    showView('admin-dashboard');
+                }
+            }
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+        });
+
+        // Click outside modal to close
+        document.getElementById('service-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideServiceForm();
+            }
+        });
+    </script>
+</body>
+</html>

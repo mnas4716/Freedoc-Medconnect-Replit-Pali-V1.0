@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8431%);
+  --card: hsl(180, 6.6667%, 97.0588%);
+  --card-foreground: hsl(210, 25%, 7.8431%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8431%);
+  --primary: hsl(217, 91%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 25%, 7.8431%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 1.9608%, 90%);
+  --muted-foreground: hsl(210, 25%, 7.8431%);
+  --accent: hsl(217, 91%, 97%);
+  --accent-foreground: hsl(217, 91%, 52%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(217, 91%, 52%);
+  --chart-1: hsl(217, 91%, 52%);
+  --chart-2: hsl(142, 76%, 36%);
+  --chart-3: hsl(47, 96%, 53%);
+  --chart-4: hsl(139, 84%, 37%);
+  --chart-5: hsl(340, 82%, 52%);
+  --sidebar: hsl(180, 6.6667%, 97.0588%);
+  --sidebar-foreground: hsl(210, 25%, 7.8431%);
+  --sidebar-primary: hsl(217, 91%, 52%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(217, 91%, 97%);
+  --sidebar-accent-foreground: hsl(217, 91%, 52%);
+  --sidebar-border: hsl(214, 32%, 91%);
+  --sidebar-ring: hsl(217, 91%, 52%);
+  --font-sans: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  --radius: 0.5rem;
+  --freedoc-blue: hsl(217, 91%, 52%);
+  --freedoc-blue-light: hsl(217, 91%, 97%);
+  --freedoc-blue-dark: hsl(217, 91%, 42%);
+  --freedoc-dark: hsl(210, 25%, 15%);
+  --freedoc-secondary: hsl(210, 16%, 42%);
+}
+
+.dark {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(222, 84%, 5%);
+  --secondary: hsl(217, 19%, 27%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 19%, 27%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --accent: hsl(217, 19%, 27%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 19%, 27%);
+  --input: hsl(217, 19%, 27%);
+  --ring: hsl(217, 91%, 60%);
+  --chart-1: hsl(220, 70%, 50%);
+  --chart-2: hsl(160, 60%, 45%);
+  --chart-3: hsl(30, 80%, 55%);
+  --chart-4: hsl(280, 65%, 60%);
+  --chart-5: hsl(340, 75%, 55%);
+  --freedoc-blue: hsl(217, 91%, 60%);
+  --freedoc-blue-light: hsl(217, 91%, 15%);
+  --freedoc-blue-dark: hsl(217, 91%, 70%);
+  --freedoc-dark: hsl(210, 40%, 98%);
+  --freedoc-secondary: hsl(215, 20%, 65%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  .freedoc-blue {
+    color: var(--freedoc-blue);
+  }
+
+  .bg-freedoc-blue {
+    background-color: var(--freedoc-blue);
+  }
+
+  .border-freedoc-blue {
+    border-color: var(--freedoc-blue);
+  }
+
+  .text-freedoc-blue {
+    color: var(--freedoc-blue);
+  }
+
+  .bg-freedoc-light {
+    background-color: var(--freedoc-blue-light);
+  }
+
+  .text-freedoc-dark {
+    color: var(--freedoc-dark);
+  }
+
+  .text-freedoc-secondary {
+    color: var(--freedoc-secondary);
+  }
+
+  .hover\:bg-freedoc-blue:hover {
+    background-color: var(--freedoc-blue);
+  }
+
+  .hover\:text-freedoc-blue:hover {
+    color: var(--freedoc-blue);
+  }
+
+  .hover\:border-freedoc-blue:hover {
+    border-color: var(--freedoc-blue);
+  }
+
+  /* Healthcare-specific styling */
+  .medical-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow;
+  }
+
+  .service-icon {
+    @apply p-3 rounded-lg w-fit mb-4;
+  }
+
+  .status-badge {
+    @apply px-2 py-1 rounded-full text-xs font-medium;
+  }
+
+  .consultation-card {
+    @apply border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow;
+  }
+
+  /* Form styling for medical forms */
+  .medical-form {
+    @apply space-y-6;
+  }
+
+  .medical-form input,
+  .medical-form textarea,
+  .medical-form select {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-freedoc-blue focus:border-freedoc-blue transition-colors;
+  }
+
+  .medical-form label {
+    @apply block text-sm font-medium text-freedoc-dark mb-2;
+  }
+
+  /* Dashboard styling */
+  .dashboard-header {
+    @apply bg-white shadow-sm border-b;
+  }
+
+  .dashboard-stats {
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+  }
+
+  .stat-card {
+    @apply bg-white p-6 rounded-lg shadow-sm;
+  }
+
+  /* Navigation styling */
+  .nav-link {
+    @apply text-freedoc-secondary hover:text-freedoc-blue transition-colors;
+  }
+
+  .nav-button {
+    @apply bg-freedoc-blue text-white px-4 py-2 rounded-lg hover:bg-freedoc-blue-dark transition-colors;
+  }
+
+  /* Healthcare-themed animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pulse-medical {
+    animation: pulseMedical 2s infinite;
+  }
+
+  @keyframes pulseMedical {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Accessibility improvements */
+  .focus-visible:focus {
+    @apply outline-none ring-2 ring-freedoc-blue ring-offset-2;
+  }
+
+  /* Print styles for medical documents */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-break {
+      page-break-before: always;
+    }
+    
+    body {
+      @apply text-black bg-white;
+    }
+  }
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240, 1.9608%, 90%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--freedoc-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--freedoc-blue-dark);
+}
